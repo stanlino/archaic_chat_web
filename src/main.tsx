@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ChatScreen } from './screens/chat'
 import { HomeScreen } from './screens/home'
 
+import './styles/global.css'
+
 const router = createBrowserRouter([
   {
     path: '/',
