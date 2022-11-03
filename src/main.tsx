@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     element: <HomeScreen />,
   },
   {
-    path: '/chat',
+    path: '/room/:room_id',
     element: <ChatScreen />,
   }
 ])

@@ -1,18 +1,30 @@
 import create from 'zustand'
+import { devtools, persist } from 'zustand/middleware'
 
-interface ChatState {
-  room_id: string
-  setRoomId: (room_id: string) => void
+interface UserState {
   username: string
   setUsername: (username: string) => void
+  color: string
+  setColor: (color: string) => void
 }
 
+let hex = window.crypto.getRandomValues(new Uint8Array(3))
+  .reduce((acc, val) => acc + val.toString(16), "#");
 
-const useChatStore = create<ChatState>((set) => ({
-  room_id: '',
-  setRoomId: (room_id: string) => set({ room_id }),
-  username: '',
-  setUsername: (username: string) => set({ username }),
-}))
+const useUserStore = create<UserState>()(
+  devtools(
+    persist(
+      (set) => ({
+        username: '',
+        setUsername: (username: string) => set({ username }),
+        color: hex,
+        setColor: (color: string) => set({ color }),
+      }),
+      {
+        name: '@archaic/user_storage'
+      }
+    )
+  )
+)
 
-export { useChatStore }
+export { useUserStore }

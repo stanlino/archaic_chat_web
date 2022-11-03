@@ -4,11 +4,13 @@ import { io, Socket } from "socket.io-client";
 interface UseSocketOptions {
   username: string;
   room_id: string;
+  color: string;
 }
 
 export const useSocket = (serverURL: string, {
   username,
-  room_id
+  room_id,
+  color
 }: UseSocketOptions) => {
 
   const [messages, setMessages] = useState([] as any[]);
@@ -35,12 +37,16 @@ export const useSocket = (serverURL: string, {
     if (!message) return
 
     const message_id = Math.random().toString(36).substr(2, 9)
+    const socket_id = socket.current?.id
 
     socket.current?.emit('message-to-server', {
       message,
       username,
       room_id,
-      message_id
+      message_id,
+      socket_id,
+      time: new Date().toLocaleTimeString(),
+      color
     })
   }
 
