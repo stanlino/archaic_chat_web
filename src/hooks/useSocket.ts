@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
+import { Message } from "../dtos/message";
 
 interface UseSocketOptions {
   username: string;
@@ -13,7 +14,7 @@ export const useSocket = (serverURL: string, {
   color
 }: UseSocketOptions) => {
 
-  const [messages, setMessages] = useState([] as any[]);
+  const [messages, setMessages] = useState<Message[]>([] as Message[]);
 
   const [connected, setConnected] = useState(false);
 
@@ -33,21 +34,25 @@ export const useSocket = (serverURL: string, {
     });
   }, []);
 
-  function sendMessage(message: string) {
+  function sendMessage(message: string, highlight_id: string | null) {
+
+    console.log(message)
+
     if (!message) return
 
-    const message_id = Math.random().toString(36).substr(2, 9)
-    const socket_id = socket.current?.id
+    const id = Math.random().toString(36).substr(2, 9)
 
-    socket.current?.emit('message-to-server', {
+    const newMessage: Message = {
       message,
       username,
       room_id,
-      message_id,
-      socket_id,
+      id,
       time: new Date().toLocaleTimeString(),
-      color
-    })
+      color,
+      highlight_id,
+    }
+
+    socket.current?.emit('message-to-server', newMessage);
   }
 
   return { messages, sendMessage, connected }
