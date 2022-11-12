@@ -1,5 +1,5 @@
 import { FormEvent, useRef } from "react"
-import { useUserStore } from "../store/chat"
+import { useUserStore } from "../store/user"
 
 import { useNavigate } from 'react-router-dom'
 import { HexColorPicker } from "react-colorful"
