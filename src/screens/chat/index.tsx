@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom";
 import { Message } from "../../dtos/message";
 import { useChat } from "../../hooks/useChat";
@@ -15,7 +15,7 @@ function ChatScreen() {
   const [ highlightedMessage, setHighlightedMessage ] = useState<Message | null>(null)
 
   const { connected, socket } = useConnection(String(room_id))
-  const { messages, sendMessage } = useChat(socket, String(room_id))
+  const { messages, sendMessage, users } = useChat(socket, String(room_id))
 
   function handleSendMessage(event: FormEvent) {
     event.preventDefault()
@@ -40,9 +40,9 @@ function ChatScreen() {
   const reversed_messages = messages.slice().reverse()
 
   return (
-    <main className="h-screen w-screen bg-neutral-900 flex flex-col justify-center px-12 pb-8 pt-4">
+    <main className="h-screen w-screen bg-gradient-to-tr from-neutral-900 to-gray-900 flex flex-col justify-center px-12 pb-8 pt-4">
       <div className="flex">
-        <div className="bg-neutral-800 w-fit py-2 px-4 rounded">
+        <div className="w-fit py-2 px-4">
           <span className="text-neutral-400 text-base">Sala:</span>
           <span className="text-neutral-100 text-lg font-bold ml-2">{room_id}</span>
         </div>
@@ -52,11 +52,26 @@ function ChatScreen() {
             {connected ? 'Conectado' : 'Estabelencendo conexão...'}
           </span>
         </div>
+        <div className="flex-1" />
+        <div className="w-fit items-center flex px-4">
+          {users.length > 0 ? (
+            <>
+              <span className="text-neutral-100 text-lg font-bold mr-2">{users.length + 1}</span>
+              <span className="text-neutral-400 text-base">Pessoas na sala</span>
+            </>
+          ): (
+            <span className="text-neutral-400 text-base">Ninguém na sala {'(além de você)'}</span>
+          )}
+        </div>
       </div>
       <div className="flex-1 w-full overflow-hidden py-4">
         <div className="flex-1 flex flex-col-reverse overflow-y-auto h-full pr-4">
           {reversed_messages.map(message => 
-            <MessageView onDoubleClick={() => handleHighlightMessage(message)} key={message.id} message={message} />
+            <MessageView 
+              replyMessage={handleHighlightMessage}
+              key={message.id} 
+              message={message} 
+            />
           )}
         </div>
       </div>

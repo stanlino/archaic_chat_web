@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 import { Message } from "../dtos/message";
+import { Room } from "../dtos/room";
+import { User } from "../dtos/user";
 import { useMessagesStore } from "../store/messages";
 import { useUserStore } from "../store/user";
 
@@ -8,6 +10,19 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
 
   const [messages, addMessage, clearMessages] = useMessagesStore(state => [state.messages, state.addMessage, state.clearMessages]);
   const [username, color] = useUserStore(state => [state.username, state.color]);
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    fetch('https://uniquechatserver.herokuapp.com/rooms')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach((room: Room) => {
+          if (room.id === room_id) {
+            setUsers(room.users);
+          }
+        })
+      })
+  }, [])
 
   useEffect(() => {
     socket?.on('message-to-app', (newMessage) => {
@@ -21,6 +36,8 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
         time: new Date().toISOString(),
         type: 'system'
       });
+
+      setUsers(users => [...users, username]);
     })
 
     socket?.on('user-left', (username) => {
@@ -30,6 +47,8 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
         time: new Date().toISOString(),
         type: 'system'
       });
+
+      setUsers(users => users.filter(user => user !== username));
     })
 
     return () => {
@@ -63,6 +82,7 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
 
   return {
     messages,
-    sendMessage
+    sendMessage,
+    users
   }
 }
