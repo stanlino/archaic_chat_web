@@ -83,7 +83,7 @@ function HomeScreen() {
       </div>  
       <div className="flex flex-1 justify-center items-center px-4">
         <form onSubmit={handleSignIn} className="flex flex-1 flex-col items-center gap-4 justify-center max-w-md">
-          <HexColorPicker color={color} onChange={setColor} className="mb-4" />
+          <HexColorPicker style={{ width: '100%' }} color={color} onChange={setColor} className="w-full" />
           <input ref={room_id_input} placeholder="Código da sala" className="w-full bg-neutral-800 h-10 rounded placeholder-gray-400 text-slate-100 px-4 lowercase" />
           <input defaultValue={username} ref={username_input} placeholder="Username" className="w-full bg-neutral-800 h-10 rounded placeholder-gray-400 text-slate-100 px-4" />
           <button type="submit" className="w-full bg-neutral-600 h-10 rounded text-slate-100 px-4 hover:bg-neutral-500 font-bold">Entrar na sala</button>
