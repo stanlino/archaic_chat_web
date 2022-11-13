@@ -32,8 +32,8 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
     socket?.on('user-connected', (username) => {
       addMessage({
         id: Math.random().toString(36).substr(2, 9),
-        message: `${username} entrou na festa!`,
-        time: new Date().toISOString(),
+        message: `${username} entrou na sala`,
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
         type: 'system'
       });
 
@@ -43,8 +43,8 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
     socket?.on('user-left', (username) => {
       addMessage({
         id: Math.random().toString(36).substr(2, 9),
-        message: `${username} foi de beise!`,
-        time: new Date().toISOString(),
+        message: `${username} foi de base`,
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
         type: 'system'
       });
 
@@ -59,7 +59,7 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
   function sendMessage(message: string, highlighted_message: Message | null) {
 
     const id = Math.random().toString(36).substr(2, 9)
-    const time = new Date().toLocaleTimeString()
+    const time = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     const type = 'user'
     const socket_id = socket?.id
 

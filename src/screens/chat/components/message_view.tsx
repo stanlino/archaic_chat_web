@@ -26,7 +26,7 @@ export function MessageView({ message, replyMessage }: MessageViewProps) {
   if (message.type === 'system') {
     return (
       <div className="text-neutral-500 text-sm my-2">
-        {message.message}
+        {message.message} às {message.time}
       </div>
     )
   }
