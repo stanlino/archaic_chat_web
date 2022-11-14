@@ -1,5 +1,5 @@
-import { DetailedHTMLProps } from "react";
-import { MdContentCopy, MdOutlineReply } from 'react-icons/md'
+import { useState } from "react";
+import { MdContentCopy, MdOutlineReply, MdCheck } from 'react-icons/md'
 
 import { Message } from "../../../dtos/message";
 import { useMessagesStore } from "../../../store/messages";
@@ -12,11 +12,21 @@ interface MessageViewProps {
 export function MessageView({ message, replyMessage }: MessageViewProps) {
 
   const [ messages ] = useMessagesStore(store => [store.messages])
+  const [ isCopied, setIsCopied ] = useState(false)
 
   const isHighlighted = messages.find(item => item.id === message.highlighted_message?.id)
 
+  function cancelDoubleClick(event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
   function copy() {
     navigator.clipboard.writeText(message.message)
+    setIsCopied(true)
+    setTimeout(() => {
+      setIsCopied(false)
+    }, 2000)
   }
 
   function reply() {
@@ -48,8 +58,10 @@ export function MessageView({ message, replyMessage }: MessageViewProps) {
       <button onClick={reply} className="text-neutral-400 hover:text-neutral-100 p-2 rounded border border-transparent hover:border-gray-400 text-sm font-bold hidden group-hover:block">
         <MdOutlineReply />
       </button>
-      <button onClick={copy} className="text-neutral-400 hover:text-neutral-100 p-2 rounded border border-transparent hover:border-gray-400 text-sm font-bold hidden group-hover:block">
-        <MdContentCopy />
+      <button onDoubleClick={cancelDoubleClick} onClick={copy} className={`text-neutral-400 hover:text-neutral-100 p-2 rounded border border-transparent hover:border-gray-400 text-sm font-bold hidden group-hover:block ${isCopied && 'border-green-500 text-green-500 hover:border-green-500 hover:text-green-500'}`}>
+        {
+          isCopied ? <MdCheck /> : <MdContentCopy />
+        }
       </button>
       <span className="text-neutral-500 text-sm ml-4">{message.time}</span>
     </div>

@@ -30,11 +30,11 @@ function ChatScreen() {
   }
 
   function handleHighlightMessage(message: Message) {
-    if (highlightedMessage?.id === message.id) {
-      setHighlightedMessage(null)
-      return
-    }
     setHighlightedMessage(message)
+  }
+
+  function handleDismissHighlightedMessage() {
+    setHighlightedMessage(null)
   }
 
   const reversed_messages = messages.slice().reverse()
@@ -76,7 +76,7 @@ function ChatScreen() {
         </div>
       </div>
       <form onSubmit={handleSendMessage} className='flex w-full flex-col'>
-        {highlightedMessage && <HighlightedMessage message={highlightedMessage} dismiss={handleHighlightMessage} />}
+        {highlightedMessage && <HighlightedMessage message={highlightedMessage} dismiss={handleDismissHighlightedMessage} />}
         <div className="flex w-full gap-2">
           <input disabled={!connected} ref={new_message_input_ref} placeholder="Escreva uma mensagem" className="w-full bg-neutral-800 h-10 rounded placeholder-gray-400 text-slate-100 px-4 text-base" />
           <button type="submit" className="min-w-1/6 bg-neutral-600 h-10 rounded text-slate-100 hover:bg-neutral-500 font-bold text-center px-4">Enviar</button>
