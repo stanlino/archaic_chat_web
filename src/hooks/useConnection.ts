@@ -17,7 +17,10 @@ export const useConnection = (room_id: string) => {
     );
 
     socket.current?.on('connect', () => {
-      socket.current?.emit('join-room', { room_id, username });
+      socket.current?.emit('join-room', {
+        room_id,
+        username: username || 'Anonymous'
+      });
 
       setConnected(true)
     })

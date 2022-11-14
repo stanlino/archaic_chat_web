@@ -65,7 +65,7 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
 
     const newMessage: Message = {
       message,
-      username,
+      username: username || 'Anônimo',
       room_id,
       id,
       color,

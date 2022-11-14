@@ -15,7 +15,7 @@ const useUserStore = create<UserState>()(
   devtools(
     persist(
       (set) => ({
-        username: '',
+        username: null as unknown as string,
         setUsername: (username: string) => set({ username }),
         color: hex,
         setColor: (color: string) => set({ color }),
