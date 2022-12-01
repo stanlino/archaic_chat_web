@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { ChatScreen } from './screens/chat'
 import { HomeScreen } from './screens/home'
+import { RoomsScreen } from './screens/rooms'
 
 import './styles/global.css'
 
@@ -13,7 +14,11 @@ const router = createBrowserRouter([
     element: <HomeScreen />,
   },
   {
-    path: '/room/:room_id',
+    path: '/rooms',
+    element: <RoomsScreen />,
+  },
+  {
+    path: '/rooms/:room_id',
     element: <ChatScreen />,
   }
 ])
