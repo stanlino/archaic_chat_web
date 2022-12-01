@@ -5,9 +5,7 @@ import { UpdateProfile } from "./components/updateProfile"
 
 function HomeScreen() {  
 
-  const hasUsername = useUserStore(state => {
-    return state.username.length > 0
-  })
+  const hasUsername = useUserStore(state => state.username)
 
   const navigate = useNavigate()
 
