@@ -13,7 +13,7 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    fetch('https://uniquechatserver.herokuapp.com/rooms')
+    fetch('https://archaic-chat-server.onrender.com/rooms')
       .then(response => response.json())
       .then(data => {
         data.forEach((room: Room) => {

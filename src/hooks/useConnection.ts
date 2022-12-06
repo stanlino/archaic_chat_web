@@ -12,7 +12,7 @@ export const useConnection = (room_id: string) => {
 
   useEffect(() => {
     socket.current = io(
-      'https://uniquechatserver.herokuapp.com/',
+      'https://archaic-chat-server.onrender.com',
       { transports: ['websocket'] }
     );
 

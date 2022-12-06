@@ -13,10 +13,12 @@ export function Rooms() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetch('https://uniquechatserver.herokuapp.com/rooms')
+    fetch('https://archaic-chat-server.onrender.com/rooms')
       .then(response => response.json())
       .then(data => {
         setActivesRooms(data)
+      })
+      .finally(() => {
         setLoading(false)
       })
   },[])
