@@ -14,7 +14,7 @@ export function MessageView({ message, replyMessage }: MessageViewProps) {
   const [ messages ] = useMessagesStore(store => [store.messages])
   const [ isCopied, setIsCopied ] = useState(false)
 
-  const isHighlighted = messages.find(item => item.id === message.highlighted_message?.id)
+  const isHighlighted = messages.find(item => item.id === message.reply?.id)
 
   function cancelDoubleClick(event: any) {
     event.preventDefault();

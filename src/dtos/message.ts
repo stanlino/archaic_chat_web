@@ -3,7 +3,7 @@ export interface Message {
   message: string;
   username?: string;
   color?: string;
-  highlighted_message?: Message | null;
+  reply?: Message | null;
   time?: string;
   room_id?: string;
   type: 'user' | 'system';

@@ -56,7 +56,7 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
     }
   }, [socket])
 
-  function sendMessage(message: string, highlighted_message: Message | null) {
+  function sendMessage(message: string, reply: Message | null) {
 
     const id = Math.random().toString(36).substr(2, 9)
     const time = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
@@ -69,7 +69,7 @@ export const useChat = (socket: Socket | undefined, room_id: string) => {
       room_id,
       id,
       color,
-      highlighted_message,
+      reply,
       time,
       type,
       socket_id,
