@@ -13,7 +13,7 @@ export function Rooms() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetch('https://archaic-chat-server.onrender.com/rooms')
+    fetch('https://archaicchatserver-production.up.railway.app/rooms')
       .then(response => response.json())
       .then(data => {
         setActivesRooms(data)
