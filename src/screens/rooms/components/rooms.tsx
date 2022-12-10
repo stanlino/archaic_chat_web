@@ -30,7 +30,11 @@ export function Rooms() {
   if (isLoading) return <Loading />
 
   if (activesRooms.length === 0) return (
-    <p className="text-neutral-400 text-xl">Não há salas criadas 🙁</p>
+    <div className="flex flex-col gap-2 items-center">
+      <img src="/alone.svg" alt="Pessoa sozinha em uma floresta" className="w-72" />
+      <span className="text-neutral-200 text-lg">Você chegou antes de todo mundo🙁</span>
+      <span className="text-neutral-400 text-base">Crie uma sala e inicie a conversa!</span>
+    </div>
   )
 
   return (

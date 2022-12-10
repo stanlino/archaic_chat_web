@@ -19,7 +19,7 @@ function HomeScreen() {
     <main className="min-h-screen w-screen bg-gradient-to-tl from-neutral-900 to-gray-900 flex flex-col md:flex-row gap-12 md:gap-0 py-12 justify-between">
       <div className="flex flex-col flex-1 justify-center items-center gap-16">
         <div className="flex flex-col justify-center items-center gap-2">
-          <img src="/favicon.png" alt="Computador estilo steampunk" className="w-40" />
+          <img src="/hero.svg" alt="Computador estilo steampunk" className="w-80" />
           <h1 className="text-2xl text-neutral-400">Seja bem vind@</h1>
           <h1 className="text-4xl text-orange-500 font-bold">Archaic chat</h1>
         </div>
